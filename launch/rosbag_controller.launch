@@ -2,8 +2,9 @@
 <launch>
 	
 	<arg name="rosbag_bin" default="/opt/ros/indigo/bin/rosbag"/>
-	<arg name="bag"/>
+	<arg name="bag" default="/media/peter/Data/roslog/sto_bagfile/velodyne/20170221_chungho/b1_wl_nb.bag"/>
+	<arg name="rate" default="--rate=1."/>
 	
-	<node name="BAG" pkg="rosbag_controller" type="rosbag_controller_node" args="$(arg rosbag_bin) $(arg bag)" output="screen"/>
+	<node name="BAG" pkg="rosbag_controller" type="rosbag_controller_node" args="$(arg rosbag_bin) $(arg bag) $(arg rate)" output="screen"/>
 
 </launch>

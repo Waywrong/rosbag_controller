@@ -47,14 +47,15 @@ int main(int argc, char * argv[]) {
 
   // --- construct the argument vector and spawn rosbag
 
-  const char* rosbag_args[6];
+  const char* rosbag_args[7];
 
   rosbag_args[0] = argv[1];
   rosbag_args[1] = "play";
   rosbag_args[2] = "--clock";
   rosbag_args[3] = "--pause";
-  rosbag_args[4] = argv[2];
-  rosbag_args[5] = (const char *) NULL;
+  rosbag_args[4] = argv[3];//rate
+  rosbag_args[5] = argv[2];//bag_path
+  rosbag_args[6] = (const char *) NULL;
 
   rosbag = new Spawner(rosbag_args);
 
@@ -73,20 +74,20 @@ int main(int argc, char * argv[]) {
   // --- advertise pause and unpause services
 
   ros::ServiceServer pause_srv = n.advertiseService("pause_bag", pause);
-  ros::ServiceServer unpause_srv = n.advertiseService("unpause_bag", unpause);
+  ros::ServiceServer unpause_srv = n.advertiseService("bag_go", unpause);
 
   ros::AsyncSpinner spinner(1);
   spinner.start();
 
   // --- consume output from rosbag;
 
-  char buf[1024];
+  char buf[10240];
 
   ros::Rate r(10);
 
   while (ros::ok()) {
     r.sleep();
-    rosbag->stdout.readsome(buf, 1024);
+    rosbag->stdout.readsome(buf, 10240);
   }
 
   ros::waitForShutdown();
