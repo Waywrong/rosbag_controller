@@ -17,7 +17,11 @@ add_executable(rosbag_controller_node
 							 src/rosbag_controller_node.cpp
 							 src/spawner.cpp
 							)
+add_executable(auto_ros_cmd src/auto_ros_cmd.cpp)
 
 target_link_libraries(rosbag_controller_node
+  ${catkin_LIBRARIES}
+)
+target_link_libraries(auto_ros_cmd
   ${catkin_LIBRARIES}
 )

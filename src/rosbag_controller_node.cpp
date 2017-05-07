@@ -87,6 +87,7 @@ int main(int argc, char * argv[]) {
 
   while (ros::ok()) {
     r.sleep();
+    //std::cout << "hi" <<std::endl;
     rosbag->stdout.readsome(buf, 10240);
   }
 
